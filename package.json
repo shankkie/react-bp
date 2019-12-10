@@ -8,5 +8,13 @@
   },
   "keywords": [],
   "author": "Shankar Veerakandhan",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shankkie/react-bp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shankkie/react-bp/issues"
+  },
+  "homepage": "https://github.com/shankkie/react-bp#readme"
 }
