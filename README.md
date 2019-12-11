@@ -14,7 +14,7 @@
 install babel loader for react to compile jsx <br>
 `npm i -D @babel/preset-react`
 
-To include html plugin to webpack <br>
+To inject js bundle into html file <br>
 `npm i -D html-webpack-plugin`
 
 We can run webpack in watch mode so the changes get reflected <br>
@@ -29,7 +29,7 @@ To run files on local server <br>
 Generating source maps for better debug <br>
 `devTool: "source-map"`
 
-Support proposed JS features with babel
+Support proposed JS features with babel <br>
 `npm i -D @babel/plugin-proposal-class-properties`
 
 Config <br>
