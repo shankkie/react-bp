@@ -7,7 +7,9 @@
     "build": "webpack --config webpack.config.prod.js",
     "dev": "webpack-dev-server --open --config webpack.config.dev.js",
     "dev:hot": "npm run dev -- --hot",
-    "test": "jest"
+    "test": "jest",
+    "format": "pretty-quick",
+    "lint": "eslint ./"
   },
   "keywords": [],
   "author": "Shankar Veerakandhan",
@@ -19,6 +21,11 @@
   "bugs": {
     "url": "https://github.com/shankkie/react-bp/issues"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged && npm run lint && npm run test"
+    }
+  },
   "homepage": "https://github.com/shankkie/react-bp#readme",
   "devDependencies": {
     "@babel/cli": "^7.7.5",
@@ -29,12 +36,19 @@
     "@babel/preset-react": "^7.7.4",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
+    "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "babel-plugin-dynamic-import-node": "^2.3.0",
     "css-loader": "^3.3.2",
+    "eslint": "^6.8.0",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.17.0",
     "html-webpack-plugin": "^3.2.0",
+    "husky": "^3.1.0",
     "jest": "^24.9.0",
     "jest-dom": "^4.0.0",
+    "prettier": "^1.19.1",
+    "pretty-quick": "^2.0.1",
     "react-testing-library": "^8.0.1",
     "style-loader": "^1.0.1",
     "webpack": "^4.41.2",

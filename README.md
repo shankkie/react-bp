@@ -1,40 +1,51 @@
 # Boilerplate for React
 
+#### Install Babel for browser supports (compile modern JS to legacy JS)
 
-##### Install Babel for browser supports (compile modern JS to legacy JS)
 `npm i -D @babel/core @babel/cli @babel/preset-env`
 
-##### run node bin using babel for one file to see the transformation
+#### run node bin using babel for one file to see the transformation
+
 `$(npm bin)/babel ./src/greet.js`
 `$(npm bin)/babel ./src/greet.js --presets=@babel/preset-env`
-- we can also use npx to do this <br>
-`npx babel ./src/greet.js`
 
-##### webpack config - configure loader to pass our src code through before it get bundled for distribution
+- we can also use npx to do this <br>
+  `npx babel ./src/greet.js`
+
+#### webpack config - configure loader to pass our src code through before it get bundled for distribution
+
 `npm i -D babel-loader`
 
-##### install babel loader for react to compile jsx <br>
+#### install babel loader for react to compile jsx <br>
+
 `npm i -D @babel/preset-react`
 
-##### To inject js bundle into html file <br>
+#### To inject js bundle into html file <br>
+
 `npm i -D html-webpack-plugin`
 
-##### We can run webpack in watch mode so the changes get reflected <br>
+#### We can run webpack in watch mode so the changes get reflected <br>
+
 `"dev": "webpack --watch --mode development"`
 
-##### Create separate webpack configs using merge <br>
-`npm i -D webpack-merge`   
+#### Create separate webpack configs using merge <br>
 
-##### To run files on local server <br>
+`npm i -D webpack-merge`
+
+#### To run files on local server <br>
+
 `npm i -D webpack-dev-server`
 
-##### Generating source maps for better debug <br>
+#### Generating source maps for better debug <br>
+
 `devTool: "source-map"`
 
-##### Support proposed JS features with babel <br>
+#### Support proposed JS features with babel <br>
+
 `npm i -D @babel/plugin-proposal-class-properties`
 
-##### Config <br>
+#### Config <br>
+
 ```$xslt
 rules: [
             {
@@ -49,26 +60,31 @@ rules: [
         ]
 ```
 
-##### Import css in webpack using style-loader and css-loader <br>
+#### Import css in webpack using style-loader and css-loader <br>
+
 `npm i -D css-loader style-loader`
 
-* css-loader: handle css syntax <br>
-* style-loader: take css and inject it in the html
+- css-loader: handle css syntax <br>
+- style-loader: take css and inject it in the html
 
-##### hot reload rect with hot module
+#### hot reload rect with hot module
+
 `npm i -S react-hot-loader`
 
 - edit webpack file <br>
-    `plugins: ['react-hot-loader/babel]`
+  `plugins: ['react-hot-loader/babel]`
 - edit App.js <br>
-    `import {hot} from 'react-hot-loader'` <br>
-    `export default hot(module)(App)`
+  `import {hot} from 'react-hot-loader'` <br>
+  `export default hot(module)(App)`
 - edit package.son <br>
-    `dev:hot": "webpack-dev-server --open --hot --config webpack.config.dev.js`
+  `dev:hot": "webpack-dev-server --open --hot --config webpack.config.dev.js`
 
-##### Analyze a Production JS bundle using webpack bundle analyzer
+#### Analyze a Production JS bundle using webpack bundle analyzer
+
 `npm i -D webpack-bundle-analyzer` <br>
+
 - inside webpack.prod.config.js
+
 ```$xslt
 const {BundleAnalyzerPlugin} = require('webpack-bundle-analyzer');
 
@@ -76,8 +92,11 @@ plugins: [ new BundleAnalyzerPlugin({
         analyzerMode: 'static'
     })]
 ```
-##### Externalize the dependencies to be loaded via CDN
+
+#### Externalize the dependencies to be loaded via CDN
+
 - inside webpack.prod.config.js
+
 ```$xslt
     externals: {
         react: 'React',
@@ -85,39 +104,47 @@ plugins: [ new BundleAnalyzerPlugin({
 
     }
 ```
+
 - inside index.html
+
 ```$xslt
 <% if(process.env.NODE_ENV === 'production') {%>
    <script crossorigin src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
 <% } %>
 ```
-##### Interesting part now to support IE :) 
+
+#### Interesting part now to support IE :)
+
 `npm i -S @babel/polyfill`
 
 - changes to webpack base file version 1
-    ```$xslt
-        presets: [ ['@babel/preset-env', {
-            targets: {
-                chrome: 68
-            },
-            useBuiltIns: 'entry'
-        }]]
-    ```
+  ```$xslt
+      presets: [ ['@babel/preset-env', {
+          targets: {
+              chrome: 68
+          },
+          useBuiltIns: 'entry'
+      }]]
+  ```
 - run in terminal to get the lists<br>
-    `npx browserslist "last 2 versions, not dead"`
+  `npx browserslist "last 2 versions, not dead"`
 
 - changes to webpack base file version 2
-     ```$xslt
-            presets: [ ['@babel/preset-env', {
-                targets: {
-                    chrome: 68
-                },
-                useBuiltIns: 'entry'
-            }]]
-        ```
-##### Asynchronously loading webpack bundle
+  ````$xslt
+         presets: [ ['@babel/preset-env', {
+             targets: {
+                 chrome: 68
+             },
+             useBuiltIns: 'entry'
+         }]]
+     ```
+  ````
+
+#### Asynchronously loading webpack bundle
+
 install `@babel/plugin-syntax-dynamic-import` <br>
+
 ```
 const Warning = React.lazy( () => import('./Warning'));
 { this.state.count > 10 ?
@@ -127,36 +154,84 @@ const Warning = React.lazy( () => import('./Warning'));
     : null
 }
 ```
-##### Testing using Jest <br>
-`npm i -D jest`  <br>
+
+#### Testing using Jest <br>
+
+`npm i -D jest` <br>
 then in package.json, <br>
 `"test": "jest"`<br>
 `npm i -D react-testing-library jest-dom` <br>
-`npm i -D  @testing-library/react @testing-library/jest-dom`
- 
+`npm i -D @testing-library/react @testing-library/jest-dom`
+
 To overcome the below error,
+
 ```
     Jest encountered an unexpected token
     This usually means that you are trying to import a file which Jest cannot parse, e.g. it's not plain JavaScript.
 ```
+
 - copy and paste the options objects for babel loader as JSON in a separate file called .babelrc
 
 if encounter an issue, with babel version issues,<br>
-` npm i -D babel-jest babel-core@bridge`
+`npm i -D babel-jest babel-core@bridge`
 
 if encounter an issue, with import (purely happens because the test is running in node), we need to install another library<br>
-` npm i -D babel-plugin-dynamic-import-node`
+`npm i -D babel-plugin-dynamic-import-node`
 
 #### Setup testing global in jest
+
 create a new file jest.config.js
+
 ```
 module.exports = {
-     setupTestFrameworkScriptFile : '<rootDir>/testSetup.js'
+     setupTestFrameworkScriptFile : '<rootDir>/testSetup.js' // deprecrated
+     setupFilesAfterEnv : ['<rootDir>/testSetup.js'] // can insert multiple files
  };
 ```
+
 create another new file testSetup.js
+
 ```
 import '@testing-library/jest-dom';
 // import '@testing-library/react/cleanup-after-each'
 
+```
+
+#### using Prettier to format code
+
+- install the libs,
+  `npm i -D prettier pretty-quick`
+- run prettier in terminal for all the js files
+  `npx prettier --write "**/*.js"`
+- in package.json
+  `"format: "pretty-quick"`
+
+#### avoid JS mistakes using ESLINT
+
+- install eslint
+  `npm i -D eslint eslint-plugin-react`
+- run
+  `npx eslint --init`
+- for import like errors,
+  `npm i -D babel-eslint`
+- add below in the .eslintrc.json
+  `"parser": "babel-eslint",`
+
+#### check Accessibility issue
+
+- install `npm i -D eslint-plugin-jsx-a11y`
+- inside the eslint config,
+  `"plugins": ["jsx-a11y"]` & `"extends": ["plugin:jsx-a11y/recommended"]`
+
+#### having git hook using husky
+
+- install `npm i -D husky`
+- package.json
+
+```
+    "husky": {
+        "hook": {
+            "pre-commit": "pretty-quick --staged && npm run lint && npm run test"
+        }
+    }
 ```
